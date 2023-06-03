@@ -35,8 +35,6 @@ app.post('/signup', async (req, res) => {
         } else {
             const data = user(req.body)
             const save = await data.save()
-            save = result.toObject()
-            delete save.password
             res.send({ message: 'Email does not exist', alert: true });
         }
     } catch (err) {
@@ -74,6 +72,12 @@ app.post('/uploadProduct',async(req,res)=>{
     let save = await data.save()
     res.status(200).send(save)
 
+})
+
+//get product to fetch in front end
+app.get('/product',async(req,res)=>{
+    const data = await product.find({})
+    res.status(200).send(JSON.stringify(data))
 })
 
 
